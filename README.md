@@ -1,13 +1,13 @@
 # Game of Life
 
-0. [Learning Objectives](#learning-objectives)
-1. [Overview](#overview)
-  a. [What is the Game of Life?](#what-is-the-game-of-life)
-  b. [How to play the game](#how-to-play-the-game)
-2. [Building the game of life](#building-the-game-of-life)
-  a. [Game Elements](#game-elements)
-    i. [A Board](#a-board)
-    ii. [Control Panel](#control-panel)
+1. [Learning Objectives](#learning-objectives)
+2. [Overview](#overview)
+  1. [What is the Game of Life?](#what-is-the-game-of-life)
+  2. [How to play the game](#how-to-play-the-game)
+3. [Building the game of life](#building-the-game-of-life)
+  1. [Game Elements](#game-elements)
+    1. [A Board](#a-board)
+    2. [Control Panel](#control-panel)
   
 ## Learning Objectives
    * Read and write grid data in a 1D array
