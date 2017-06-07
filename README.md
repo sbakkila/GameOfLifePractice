@@ -1,22 +1,22 @@
 # Game of Life
 
-  0. [Learning Objectives](#learning-objectives)
-  1. [Overview](#overview)
-    a. [What is the Game of Life?](#what-is-the-game-of-life)
-    b. [How to play the game](#how-to-play-the-game)
-  2. [Building the game of life](#building-the-game-of-life)
-    a. [Game Elements](#game-elements)
-      i. [A Board](#a-board)
-      ii. [Control Panel](#control-panel)
+   0. [Learning Objectives](#learning-objectives)
+   1. [Overview](#overview)
+     a. [What is the Game of Life?](#what-is-the-game-of-life)
+     b. [How to play the game](#how-to-play-the-game)
+   2. [Building the game of life](#building-the-game-of-life)
+     a. [Game Elements](#game-elements)
+       i. [A Board](#a-board)
+       ii. [Control Panel](#control-panel)
   
 ## Learning Objectives
-  * Read and write grid data in a 1D array
-  * Implement a cell reducer for a cellular atomata
-  * Manipulate DOM elements to match the state of a model
-  * Use intervals to manage animations
-  * Predict how `this` will be bound, particularly in the context of iterators and event listeners
-  * [Default arguments](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters)
-  * [Array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
+   * Read and write grid data in a 1D array
+   * Implement a cell reducer for a cellular atomata
+   * Manipulate DOM elements to match the state of a model
+   * Use intervals to manage animations
+   * Predict how `this` will be bound, particularly in the context of iterators and event listeners
+   * [Default arguments](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters)
+   * [Array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
 
 ## Overview
 We are going to program a JavaScript version of the Game of Life. Along the way, we'll continue learning and practicing functional programming, DOM manipulation, and more.
