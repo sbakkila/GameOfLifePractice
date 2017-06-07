@@ -1,9 +1,11 @@
-var game = new GameOfLife(document.getElementById('main'))
+var mainElement = document.getElementById('main')
+if (mainElement) {
+  var game = new GameOfLife(mainElement)
 
-// Connect #play_btn to the play function
-document.getElementById('play_btn')
-  .addEventListener(game.play)
-
+  // Connect #play_btn to the play function
+  document.getElementById('play_btn')
+    .addEventListener('click', game.play)
+}
 // TODO: Connect other buttons.
 
 function GameOfLife(container, width=128, height=128) {  

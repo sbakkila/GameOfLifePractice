@@ -1,27 +1,40 @@
 /**
- * Given a width and height, return a Board.
+ * Given a width and height, construct a Board.
  * 
  * @param {Int} width 
  * @param {Int} height 
  */
-function createBoard(width=128, height=128) {
-  return {width, height, cells: new Uint8Array(width * height)}
+function Board(width=128, height=128, cells) {
+  this.width = width
+  this.height = height
+  // We'll store our cells in a 1D typed array.
+  // Typed arrays are a lot like normal arrays, but they're
+  // (1) much faster, and (2) can only hold one kind of data type.
+  // In this case, we're creating a Uint8 typed array, which means
+  // it can only hold unsigned, 8-bit integers (ints from 0 to 255).
+  this.cells = cells || new Uint8Array(width * height)
 }
 
-function indexForCellAt(board, [row, col]) {
-  return row * board.width + col
+Board.prototype.indexFor = function([row, col]) {
+  return row * this.width + col
 }
 
-function getCellAt(board, coords) {
-  return board.cells[indexForCellAt(coords)]
+Board.prototype.get = function (coords) {
+  return this.cells[this.indexFor(coords)]
 }
 
-function setCellAt(board, coords, value) {
+Board.prototype.set = function(coords, value) {
+  this.cells[this.indexFor(coords)] = value
   // TODO
 }
 
-function toggleCellAt(board, coords) {
+Board.prototype.livingNeighbors = function(coords) {
   // TODO
+}
+
+Board.prototype.toggle = function(coords) {
+  // TODO
+  // this.cells[this.indexFor(coords)] = !this.get(coords)
 }
 
 /**
