@@ -34,6 +34,10 @@ describe('Board::indexFor(coords: [row, col])', () => {
   it('returns the last index for (rows - 1, cols - 1)', () => {
     expect(new Board(10, 7).indexFor([6, 9])).toEqual(10 * 7 - 1)
   })
+
+  it('returns undefined for indexes that are out of bounds', () => {
+    expect(new Board(10, 10).indexFor([10, 10])).toBeUndefined()
+  })
 })
 
 describe('Board::set(coords, value)', () => {
@@ -59,6 +63,24 @@ describe('Board::set(coords, value)', () => {
   })
 })
 
+describe('Board::get(coords)', () => {
+  var board; beforeEach(() =>
+    board = new Board(3, 3, [
+      0, 1, 0,
+      0, 0, 0,
+      1, 1, 1
+    ]))
+
+  it('returns the value of cells that are there', () => {    
+    expect(board.get([0, 1])).toEqual(1)    
+  })
+
+  it('returns 0 for cells that are off the board', () => {
+    expect(board.get([10, 10])).toEqual(0)
+  })
+})
+
+
 describe('Board::toggle(coords, value)', () => {
   var board; beforeEach(() => board = new Board)
 
@@ -79,8 +101,10 @@ describe('Board::toggle(coords, value)', () => {
 })
 
 describe('Board::livingNeighbors(coords)', () => {
-  var board = new Board(3, 3, [1, 1, 1, 1, 1, 1, 1, 1, 1])  
   it('treats cells off the board as dead', () => {
+    var board = new Board(3, 3, [1, 1, 1,
+                                 1, 1, 1,
+                                 1, 1, 1])
     expect(board.livingNeighbors([0, 0])).toEqual(3)
   })
 
@@ -95,29 +119,92 @@ describe('Board::livingNeighbors(coords)', () => {
   })
 })
 
+describe('conway(isAlive, livingNeighbors) -> willLive', () => {
+  describe('living cells', () => {
+    it('with less than 2 neighbors die by underpopulation', () => {
+      expect(conway(true, 0)).toEqual(false)
+      expect(conway(true, 1)).toEqual(false)
+    })
+
+    it('with 2 or 3 neighbors survive', () => {
+      expect(conway(true, 2)).toEqual(true)
+      expect(conway(true, 3)).toEqual(true)
+    })
+
+    it('with more than 3 neighbors die of suffocation', () => {
+      expect(conway(true, 4)).toEqual(false)
+      expect(conway(true, 5)).toEqual(false)
+      expect(conway(true, 6)).toEqual(false)
+      expect(conway(true, 7)).toEqual(false)
+      expect(conway(true, 8)).toEqual(false)
+    })
+  })
+
+  describe('dead cells', () => {
+    it('with exactly 3 neighbors come alive by reproduction', () => {
+      expect(conway(false, 3)).toEqual(true)
+    })
+
+    it('stay dead if they have livingNeighbors != 3', () => {
+      expect(conway(false, 1)).toEqual(false)
+      expect(conway(false, 2)).toEqual(false)
+      expect(conway(false, 4)).toEqual(false)
+      expect(conway(false, 5)).toEqual(false)
+      expect(conway(false, 6)).toEqual(false)      
+      expect(conway(false, 7)).toEqual(false)
+      expect(conway(false, 8)).toEqual(false)
+    })
+  })
+})
+
 describe('step(present: Board, future: Board!, rules)', () => {
   describe('with rules that turn everything on', () => {
     function everythingLives() { return true }
 
     it('sets all cells alive in the future', () => {
-      var present = new Board, future = new Board
-      step(present, future)
-      var livingCells = future.cells.reduce((x, y) => x + y)
-      expect(livingCells).toEqual(future.width * future.height)
+      var present = new Board(2, 2), future = new Board(2, 2)
+      step(present, future, everythingLives)
+      expect(future.cells).toEqual([1, 1,
+                                    1, 1])
     })
   })
 
-  var glider = new Board(3, 3, [
-    0, 1, 0,
-    0, 0, 1,
-    1, 1, 1,
-  ])
-  var block = new Board(2, 2, [
-    1, 1,
-    1, 1,
-  ])
+  describe('with rules that toggle cells', () => {
+    function flip(alive) { return !alive }
+    
+    it('flips living cells to dead', () => {
+      var present = new Board(2, 2, [1, 1, 0, 0])
+      var future = new Board(2, 2)
+      step(present, future, flip)
+      expect(future.cells).toEqual([0, 0, 1, 1])
+    })
+  })
 
-  it('does nothing to a block', () => {
+  describe("with conway's rules", () => {  
+    it('does nothing to a block', () => {
+      var block = new Board(2, 2, [
+        1, 1,
+        1, 1,
+      ])
+      var future = new Board(2, 2)
+      step(block, future)
+      expect(future.cells).toEqual(block.cells)
+    })
 
+    it('advances a glider from gen1 to gen2', () => {
+      var glider1 = new Board(3, 3, [
+        1, 0, 1,
+        0, 1, 1,
+        0, 1, 0,
+      ])
+      var glider2 = new Board(3, 3, [
+        0, 0, 1,
+        1, 0, 1,
+        0, 1, 1,
+      ])
+      var future = new Board(3, 3)
+      step(glider1, future)
+      expect(future.cells).toEqual(glider2.cells)
+    })
   })
 })
