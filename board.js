@@ -4,7 +4,7 @@
  * @param {Int} width 
  * @param {Int} height 
  */
-function Board(width=128, height=128, cells) {
+function Board(width=32, height=32, cells) {
   this.width = width
   this.height = height
   // We'll store our cells in a 1D typed array.
@@ -58,13 +58,16 @@ Board.prototype.toggle = function(coords) {
  * @param {Board!} future 
  * @param {(Boolean, Int) -> Boolean} rules 
  */
-function step(present, future, rules=conway) {
+function tick(present, future, rules=conway) {
+  // TODO
   for (let r = 0; r != future.height; ++r) {
     for (let c = 0; c != future.width; ++c) {
       const coord = [r, c]
       future.set(coord, rules(present.get(coord), present.livingNeighbors(coord)))
     }
-  }  
+  }
+
+  return [future, present]
 }
 
 /**

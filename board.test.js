@@ -1,9 +1,9 @@
 describe('new Board', () => {
-  it('creates a 128x128 board by default', () => {
+  it('creates a 32x32 board by default', () => {
     var board = new Board
-    expect(board.width).toEqual(128)
-    expect(board.height).toEqual(128)
-    expect(board.cells.length).toEqual(128 * 128)
+    expect(board.width).toEqual(32)
+    expect(board.height).toEqual(32)
+    expect(board.cells.length).toEqual(32 * 32)
   })
 
   it('creates a board of a specified size', () => {
@@ -157,13 +157,18 @@ describe('conway(isAlive, livingNeighbors) -> willLive', () => {
   })
 })
 
-describe('step(present: Board, future: Board!, rules)', () => {
+describe('tick(present: Board, future: Board!, rules)', () => {
+  it('returns [future, present]', () => {
+    var present = new Board, future = new Board
+    expect(tick(present, future)).toEqual([future, present])
+  })
+
   describe('with rules that turn everything on', () => {
     function everythingLives() { return true }
 
     it('sets all cells alive in the future', () => {
       var present = new Board(2, 2), future = new Board(2, 2)
-      step(present, future, everythingLives)
+      tick(present, future, everythingLives)
       expect(future.cells).toEqual([1, 1,
                                     1, 1])
     })
@@ -175,7 +180,7 @@ describe('step(present: Board, future: Board!, rules)', () => {
     it('flips living cells to dead', () => {
       var present = new Board(2, 2, [1, 1, 0, 0])
       var future = new Board(2, 2)
-      step(present, future, flip)
+      tick(present, future, flip)
       expect(future.cells).toEqual([0, 0, 1, 1])
     })
   })
@@ -187,7 +192,7 @@ describe('step(present: Board, future: Board!, rules)', () => {
         1, 1,
       ])
       var future = new Board(2, 2)
-      step(block, future)
+      tick(block, future)
       expect(future.cells).toEqual(block.cells)
     })
 
@@ -203,7 +208,7 @@ describe('step(present: Board, future: Board!, rules)', () => {
         0, 1, 1,
       ])
       var future = new Board(3, 3)
-      step(glider1, future)
+      tick(glider1, future)
       expect(future.cells).toEqual(glider2.cells)
     })
   })
