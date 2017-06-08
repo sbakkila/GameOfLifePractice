@@ -27,27 +27,14 @@ Board.prototype.get = function (coords) {
 
 Board.prototype.set = function(coords, value) {
   // TODO
-  this.cells[this.indexFor(coords)] = value  
 }
 
 Board.prototype.livingNeighbors = function([row, col]) {
   // TODO
-  return this.get([row - 1, col - 1]) +
-         this.get([row - 1, col]) +
-         this.get([row - 1, col + 1]) +
-
-         this.get([row, col - 1]) +
-         // skip ourselves
-         this.get([row, col + 1]) +
-
-         this.get([row + 1, col - 1]) +
-         this.get([row + 1, col]) +
-         this.get([row + 1, col + 1])
 }
 
 Board.prototype.toggle = function(coords) {
   // TODO
-  this.cells[this.indexFor(coords)] = !this.get(coords)
 }
 
 /**
@@ -60,13 +47,6 @@ Board.prototype.toggle = function(coords) {
  */
 function tick(present, future, rules=conway) {
   // TODO
-  for (let r = 0; r != future.height; ++r) {
-    for (let c = 0; c != future.width; ++c) {
-      const coord = [r, c]
-      future.set(coord, rules(present.get(coord), present.livingNeighbors(coord)))
-    }
-  }
-
   return [future, present]
 }
 
@@ -79,6 +59,4 @@ function tick(present, future, rules=conway) {
  */
 function conway(isAlive, numLivingNeighbors) {
   // TODO
-  return isAlive ? (numLivingNeighbors === 2 || numLivingNeighbors === 3)
-                 : numLivingNeighbors === 3
 }

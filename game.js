@@ -6,8 +6,6 @@ if (mainElement) {
   document.getElementById('step_btn')
     .addEventListener('click', game.step)
 
-  document.getElementById('play_btn')
-    .addEventListener('click', game.togglePlaying)
   // TODO: Connect other buttons.
 }
 
@@ -32,8 +30,6 @@ function GameOfLife(container, width=12, height=12) {
     // create <table> element
     var table = document.createElement('table');       // <table
     table.classList.add('board')                       //   class='board'>
-
-
     for (var r = 0; r < height; r++) {
       var tr = document.createElement('tr');           //   <tr>
       for (var c = 0; c < width; c++) {                //     For instance, at r=2, c=3:
@@ -54,8 +50,7 @@ function GameOfLife(container, width=12, height=12) {
     // FIXME: This currently always toggles cell (0, 0).
     // How do we get the of the cell that was clicked on?
     // HINT: https://developer.mozilla.org/en-US/docs/Web/API/Event/target
-    var cell = event.target//document.getElementById('0-0'); // ⬅️ Fix me
-
+    var cell = document.getElementById('0-0'); // ⬅️ Fix me
     present.toggle(cell.coord)
     paint()
   }
@@ -69,8 +64,6 @@ function GameOfLife(container, width=12, height=12) {
     // HINT:
     //   https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
     //   https://developer.mozilla.org/en-US/docs/Web/API/Element/getElementsByTagName
-    Array.from(table.getElementsByTagName('td'))
-      .forEach(td => present.get(td.coord) ? td.classList.add('alive') : td.classList.remove('alive'))
   }
 
   function step() {
@@ -96,20 +89,16 @@ function GameOfLife(container, width=12, height=12) {
     
     // HINT:
     // https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval
-    interval = setInterval(step, 32)
   }
 
   function stop() {
     // TODO: Stop autoplay.
-    interval && clearInterval(interval)
-    interval = null
     // HINT:
     // https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/clearInterval
   }
 
   function togglePlaying() {
     // TODO: If we're playing, stop. Otherwise, start playing.
-    interval ? stop() : play()
   }
 
   function clear() {
