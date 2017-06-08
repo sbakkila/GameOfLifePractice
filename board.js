@@ -55,7 +55,8 @@ Board.prototype.get = function (coords) {
  * Set the value of the board at coords to value.
  */
 Board.prototype.set = function(coords, value) {
-  // TODO
+  var index = this.indexFor(coords);
+  this.cells[index] = value;
 }
 
 /**
@@ -64,6 +65,20 @@ Board.prototype.set = function(coords, value) {
  * Return the count of living neighbors around a given coordinate.
  */
 Board.prototype.livingNeighbors = function([row, col]) {
+  // check for the value of all cells with row or col + or - 1
+  var sum = 0;
+
+  for(var i = row - 1; i < row + 2; i++){
+    for(var j = col - 1; j < col + 2; j++){
+      if(row === i & col === j){
+      } else if (!this.get([i, j])) {
+
+      } else {
+        sum += this.get([row, col])
+      }
+    }
+  }
+  return sum;
   // TODO: Return the count of living neighbors.
 }
 
@@ -73,7 +88,12 @@ Board.prototype.livingNeighbors = function([row, col]) {
  * Toggle the cell at coords from alive to dead or vice versa.
  */
 Board.prototype.toggle = function(coords) {
-  // TODO
+  var currentValue = this.get(coords)
+  if(currentValue){
+    this.set(coords, 0)
+  } else {
+    this.set(coords, 1)
+  }
 }
 
 /**
@@ -84,10 +104,18 @@ Board.prototype.toggle = function(coords) {
  * @param {Board!} future (is mutated)
  * @param {(Boolean, Int) -> Boolean} rules (default: conway)
  */
-function tick(present, future, rules=conway) {
-  // TODO
-  return [future, present]
-}
+
+
+// function tick(present, future, rules=conway) {
+//   // TODO
+//   for(let r = 0; r < future.height; r++){
+//     for(let c = 0; c < future.width; c++){
+//       let coord = [r, c]
+//       future.set(coord, rules(present.get(coord), present.livingNeighbors(coord)))
+//     }
+//   }
+//   return [future, present]
+// }
 
 /**
  * Give the vitals of a cell (its current state, and how many living neighbors it
@@ -97,5 +125,18 @@ function tick(present, future, rules=conway) {
  * @param {Number} numLivingNeighbors 
  */
 function conway(isAlive, numLivingNeighbors) {
-  // TODO
+  if(isAlive){
+    if(numLivingNeighbors < 2 || numLivingNeighbors > 3 ){
+      return false
+    } else {
+      return true
+    }
+  } else {
+    if(numLivingNeighbors === 3){
+      return true
+    } else {
+      return false
+    }
+  }
+
 }
