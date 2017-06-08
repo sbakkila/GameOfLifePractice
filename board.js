@@ -3,6 +3,7 @@
  * 
  * @param {Int} width 
  * @param {Int} height 
+ * @param {Array<Int>} cells the array to use for the cells (default: new Uint8Array(width * height))
  */
 function Board(width=32, height=32, cells) {
   this.width = width
