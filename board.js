@@ -25,13 +25,22 @@ function Board(width=32, height=32, cells) {
  * board's cells array.
  */
 Board.prototype.indexFor = function([row, col]) {
+  // OMG, a destructured parameter! ⬆️⬆️⬆️⬆️⬆️⬆️
+  //
+  // This digs into the array we were passed, plucks out the first
+  // two elements, and names them row and col. Any other elements
+  // are ignored.
+  //
+  // http://2ality.com/2015/01/es6-destructuring.html  
+  
+  // Return undefined if we're out of bounds
   if (row < 0 || row >= this.height || col < 0 || col >= this.width)
-    return
+    return  
   return row * this.width + col
 }
 
 /**
- * get(coords: [int, int]) -> uint8
+ * get(coords: [row: int, col: int]) -> uint8
  * 
  * Get the value of the board at coords.
  */
@@ -40,7 +49,7 @@ Board.prototype.get = function (coords) {
 }
 
 /**
- * set(coords: [int, int], value: uint8)
+ * set(coords: [row: int, col: int], value: uint8)
  * 
  * Set the value of the board at coords to value.
  */
@@ -54,7 +63,7 @@ Board.prototype.set = function(coords, value) {
  * Return the count of living neighbors around a given coordinate.
  */
 Board.prototype.livingNeighbors = function([row, col]) {
-  // TODO
+  // TODO: Return the count of living neighbors.
 }
 
 /**
