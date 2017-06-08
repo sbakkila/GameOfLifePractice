@@ -67,8 +67,6 @@ function Life(container, width=12, height=12) {
     // HINT:
     //   https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
     //   https://developer.mozilla.org/en-US/docs/Web/API/Element/getElementsByTagName
-    Array.from(table.getElementsByTagName('td'))
-      .forEach(td => present.get(td.coord) ? td.classList.add('alive') : td.classList.remove('alive'))
   }
 
   function step() {
