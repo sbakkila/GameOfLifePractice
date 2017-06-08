@@ -119,7 +119,7 @@ describe('Board::livingNeighbors(coords)', () => {
   })
 })
 
-describe('conway(isAlive, livingNeighbors) -> willLive', () => {
+describe('conway(isAlive, livingNeighbors) -> Boolean', () => {
   describe('living cells', () => {
     it('with less than 2 neighbors die by underpopulation', () => {
       expect(conway(true, 0)).toEqual(false)

@@ -11,19 +11,19 @@ if (mainElement) {
   // TODO: Connect other buttons.
 }
 
-function GameOfLife(container, width=10, height=10) {  
+function GameOfLife(container, width=12, height=12) {  
   // Create boards for the present and future.
   // Game boards are somewhat expensive to create, so we're going
   // to be reusing them. After we advance the game one step, `future`
   // will become `present` and vice versa.
-  var present = new Board(width, height); // createBoard is in board.js
+  var present = new Board(width, height);
   var future = new Board(width, height);
 
   // Create a <table> to hold our cells.
   var table = createTable();
   
   // Put the table in our container
-  container.appendChild(table)
+  container.appendChild(table);
 
   // Add a tap listener to our table
   table.addEventListener('mousedown', toggleCellFromEvent)
@@ -63,7 +63,7 @@ function GameOfLife(container, width=10, height=10) {
   function paint() {
     // TODO:
     //   1. For each <td>:
-    //     a. If present[cell.coord] is true, give the <td> the `alive` css class
+    //     a. If present.cells[cell.coord] is true, give the <td> the `alive` css class
     //     b. Otherwise, give it the `dead` class
     //
     // HINT:
@@ -114,6 +114,10 @@ function GameOfLife(container, width=10, height=10) {
 
   function clear() {
     // TODO: Clear the board
+  }
+
+  function random() {
+    // TODO: Randomize the board
   }
 
   return {play, step, stop, togglePlaying, clear}
