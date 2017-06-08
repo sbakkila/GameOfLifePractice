@@ -5,11 +5,12 @@ body {
 h1, h2 {
   text-align: center;
 }
-#board{
+
+.board {
   margin: 0 auto;
 }
 
-#board td{
+.board td{
   border: 1px solid #ddd;
   width: 18px;
   height: 18px;
