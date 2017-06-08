@@ -201,7 +201,7 @@ OO..OOO
 
 You can also check out the GOL wiki [here](http://conwaylife.com/wiki/Main_Page) and download hundreds of known pattern files as a zip.
 
-1. Download some interesting looking `.cells` files, and load them into your app as JS strings (note that you can open the `.cells` file in Sublime Text, just like any other text file). You can load your .cells file content to your JS manually for now (meaning manually copy-paste patterns into your code, maybe as an array of starting patterns?).
+1. Download some interesting looking `.cells` files, and load them into your app as JS strings (note that you can open the `.cells` file in your editor, just like any other text file). You can load your .cells file content to your JS manually for now (meaning manually copy-paste patterns into your code, maybe as an array of starting patterns?).
 1. Add an upload button.
 1. Wire it up to a function that reads an uploaded starting pattern into your app so you can play them in your Game of Life engine.
 
