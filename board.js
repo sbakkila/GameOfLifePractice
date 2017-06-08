@@ -12,27 +12,56 @@ function Board(width=32, height=32, cells) {
   // (1) much faster, and (2) can only hold one kind of data type.
   // In this case, we're creating a Uint8 typed array, which means
   // it can only hold unsigned, 8-bit integers (ints from 0 to 255).
+  //
+  // Since we only really need to track 1 bit per cell, this is positively
+  // luxurious for our needs.
   this.cells = cells || new Uint8Array(width * height)
 }
 
+/**
+ * indexFor(coords: [row: int, col: int]) -> int
+ * 
+ * Given an array of coordinates [row, col], return the index of that cell in this
+ * board's cells array.
+ */
 Board.prototype.indexFor = function([row, col]) {
   if (row < 0 || row >= this.height || col < 0 || col >= this.width)
     return
   return row * this.width + col
 }
 
+/**
+ * get(coords: [int, int]) -> uint8
+ * 
+ * Get the value of the board at coords.
+ */
 Board.prototype.get = function (coords) {
   return this.cells[this.indexFor(coords)] || 0
 }
 
+/**
+ * set(coords: [int, int], value: uint8)
+ * 
+ * Set the value of the board at coords to value.
+ */
 Board.prototype.set = function(coords, value) {
   // TODO
 }
 
+/**
+ * livingNeighbors(coords: [row: int, col: int])
+ * 
+ * Return the count of living neighbors around a given coordinate.
+ */
 Board.prototype.livingNeighbors = function([row, col]) {
   // TODO
 }
 
+/**
+ * toggle(coords: [row: int, col: int])
+ * 
+ * Toggle the cell at coords from alive to dead or vice versa.
+ */
 Board.prototype.toggle = function(coords) {
   // TODO
 }
@@ -42,8 +71,8 @@ Board.prototype.toggle = function(coords) {
  * the rules to the present and modify the future.
  * 
  * @param {Board} present 
- * @param {Board!} future 
- * @param {(Boolean, Int) -> Boolean} rules 
+ * @param {Board!} future (is mutated)
+ * @param {(Boolean, Int) -> Boolean} rules (default: conway)
  */
 function tick(present, future, rules=conway) {
   // TODO
